@@ -1,17 +1,17 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const compression = require('compression');
 
 const port = 3000;
 
-// Configurar caché para recursos estáticos (imágenes, CSS y JavaScript).
-const oneDay = 86400000; // 1 día en milisegundos
-app.use(express.static(path.join(__dirname, ), { maxAge: oneDay }));
 
-// Manejar las solicitudes HTTP GET para la ruta raíz ('/').
+const oneYear = 1000 * 60 * 60 * 24 * 365; 
+app.use(compression());
+app.use(express.static(path.join(__dirname, ), { maxAge: oneYear }));
+
 app.get('/', (req, res) => {
-  // Cuando alguien acceda a la ruta raíz, se enviará el archivo 'index.html'
-  // desde el directorio 'public' como respuesta.
+  
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
